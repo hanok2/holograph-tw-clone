@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { NETWORK_ICONS } from "../utils/constants";
 import { getRandomNumber } from "../utils/helpers";
@@ -8,7 +8,7 @@ import { NFTCardProps } from "../utils/types";
 const NFTCard = ({ nft: { name, awsUrl } }: NFTCardProps) => {
   const [isMinted, setIsMinted] = useState(false);
 
-  const randomNumber = getRandomNumber();
+  const randomNumber = useMemo(() => getRandomNumber(), []);
 
   const handleMintButtonClick = () => {
     setIsMinted(true);
