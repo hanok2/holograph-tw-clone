@@ -3,13 +3,33 @@
 @tailwind utilities;
 
 .button-primary {
-  @apply bg-purple-400 text-xl font-bold min-h-[60px] text-white uppercase px-6 py-3.5 w-96 text-gray-900 tracking-wider;
+  @apply bg-purple-400 text-xl font-bold min-h-[60px] text-white uppercase px-6 py-3.5 w-96 text-gray-900 tracking-wider disabled:cursor-not-allowed disabled:opacity-40 hover:bg-purple-500;
+}
+
+.button-primary-half {
+  @apply button-primary;
+  @apply w-[50%];
+}
+
+.button-primary-full {
+  @apply button-primary;
+  @apply w-[100%];
+}
+
+.button-secondary {
+  @apply button-primary;
+  @apply bg-teal-300 w-80 hover:bg-teal-400;
 }
 
 .button-outlined {
-  @apply border border-white bg-transparent text-base font-bold text-white uppercase px-6 py-2 w-52 tracking-wider;
+  @apply border border-white bg-transparent text-base font-bold text-white uppercase px-6 py-2 w-52 tracking-wider hover:opacity-75;
 }
 
-.content {
+.button-outlined-half {
+  @apply button-outlined;
+  @apply text-xl min-h-[60px] w-[50%];
+}
+
+.public-content {
   @apply flex flex-col gap-8 items-center justify-center min-h-[87vh];
 }

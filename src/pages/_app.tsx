@@ -1,50 +1,32 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
-import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
+import Head from "next/head";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { WagmiConfig } from "wagmi";
+
+import { Header } from "../components";
+import { useIsMounted } from "../hooks";
+import { chains, wagmiClient } from "../utils/web3";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const isMounted = useIsMounted();
+
+  if (!isMounted) return null;
+
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
+        <Head>
+          <title>Holograph Protocol</title>
+        </Head>
+        <div className="bg-[url('/bg.jpg')] bg-cover bg-center min-h-screen">
+          <Header />
+          <Component {...pageProps} />
+        </div>
       </RainbowKitProvider>
     </WagmiConfig>
   );
 }
 
 export default MyApp;
-
-const { chains, provider, webSocketProvider } = configureChains(
-  [
-    chain.rinkeby,
-    chain.mainnet,
-    chain.polygon,
-    chain.optimism,
-    chain.arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
-      ? [chain.goerli, chain.kovan, chain.rinkeby, chain.ropsten]
-      : []),
-  ],
-  [
-    alchemyProvider({
-      apiKey: "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC",
-    }),
-    publicProvider(),
-  ]
-);
-
-const { connectors } = getDefaultWallets({
-  appName: "RainbowKit App",
-  chains,
-});
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-  webSocketProvider,
-});
