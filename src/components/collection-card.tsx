@@ -20,7 +20,7 @@ const CollectionCard = ({
   };
 
   return (
-    <div className="bg-black-opaque min-w-[60vw] rounded-md p-10">
+    <div className="bg-black-opaque min-w-[60vw] max-w-[900px] rounded-md p-10">
       <strong className="font-semibold text-white text-3xl">{name}</strong>
       <div className="bg-teal-500 h-[2px] mt-[6px] w-full" />
       <section className="flex justify-between mt-4 mb-8">
